@@ -12,6 +12,18 @@ module.exports = app => {
         });
     });
 
+    app.get('/news/:productId', (req, res) => {
+        let id = req.params.productId
+
+        connection.query(`select * from news where id = ${[id]}`, (err, result) => {
+            res.render('show', {
+                news: result
+            });
+
+        });
+
+    });
+
     app.post('/news', (req, res) => {
         const {
             title,
@@ -21,7 +33,23 @@ module.exports = app => {
             title,
             news
         }, (err, result) => {
+
             res.redirect('/news');
+
+
+
         });
     });
+
+    //app.delete('/delete:productId', (req, res) => {
+    //  let id = req.params.productId
+    //connection.query(`delete from mysql.news where news.id=${id}`, (err, result) => {
+    //  result
+    //res.redirect('/news')
+
+
+    //})
+
+
+    //})
 };
